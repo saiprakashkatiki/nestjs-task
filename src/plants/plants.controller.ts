@@ -15,9 +15,9 @@ export class PlantsController {
     }
 
 
-    @Get(':plantId')
-    async getPlant(@Param('plantId') plantId) {
-        const plant = await this.plantsService.getPlant(plantId);
+    @Get(':plantCode')
+    async getPlant(@Param('plantCode') plantCode) {
+        const plant = await this.plantsService.getPlant(plantCode);
         return plant;
     }
 

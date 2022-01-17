@@ -12,8 +12,8 @@ export class PlantsService {
     }
 
     
-    getPlant(plantId): Promise<any> {
-        let id = String(plantId) 
+    getPlant(plantCode): Promise<any> {
+        let id = String(plantCode) 
         return new Promise(resolve => {
             const plant = this.plants.find(plant => plant.plantCode === id);
 
