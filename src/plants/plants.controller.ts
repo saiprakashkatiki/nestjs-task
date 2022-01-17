@@ -14,13 +14,13 @@ export class PlantsController {
         return plants;
     }
 
-    /*
+
     @Get(':plantId')
     async getPlant(@Param('plantId') plantId) {
         const plant = await this.plantsService.getPlant(plantId);
         return plant;
     }
-    */
+
 
     @Post()
     async savePlant(@Body() createPlant: CreatePlant ) {

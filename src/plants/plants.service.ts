@@ -11,11 +11,11 @@ export class PlantsService {
         });
     }
 
-    /*
+    
     getPlant(plantId): Promise<any> {
-        let id = Number(plantId) 
+        let id = String(plantId) 
         return new Promise(resolve => {
-            const plant = this.plants.find(plant => plant.id === id);
+            const plant = this.plants.find(plant => plant.plantCode === id);
 
             if(!plant) {
                 throw new HttpException('Plant does not exist', 404)
@@ -23,7 +23,7 @@ export class PlantsService {
             resolve(plant);
         });
     }
-    */
+
 
     savePlant(plant): Promise<any> {
         return new Promise(resolve =>{
