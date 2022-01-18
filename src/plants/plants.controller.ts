@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { PlantsService } from './plants.service';
 import { CreatePlantDto } from './create-plant.dto';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
@@ -10,8 +10,8 @@ export class PlantsController {
     constructor( private readonly plantsService: PlantsService) {}
 
     @Get()
-    async getPlants() {
-        const plants = await this.plantsService.getPlants();
+    async getAllPlants() {
+        const plants = await this.plantsService.getAllPlants();
         return plants;
     }
 
@@ -33,4 +33,12 @@ export class PlantsController {
         this.plantsService.savePlant(createPlantDto);
         console.log('Successfully Saved');
     }
+
+    /*
+    @Delete()
+    async deletePlant(@Query() query) {
+        const plants = await this.plantsService.deletePlant(query.plantCode);
+        return plants;
+    }
+    */
 }

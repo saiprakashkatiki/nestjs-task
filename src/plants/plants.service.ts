@@ -1,11 +1,11 @@
 import { Injectable, HttpException } from '@nestjs/common';
-import { PLANTS } from './plants.mock';
+import { Plant } from './plant.dto';
 
 @Injectable()
 export class PlantsService {
-    plants = PLANTS;
+   private plants: Plant[]=[];
 
-    getPlants(): Promise<any> {
+    getAllPlants(): Promise<any> {
         return new Promise(resolve => {
             resolve(this.plants);
         });
@@ -31,4 +31,18 @@ export class PlantsService {
             resolve(this.plants);
         });
     }
+
+    /*
+    deletePlant(plantCode): Promise<any> {
+        let id = String(plantCode);
+        return new Promise(resolve => {
+            let index = this.plants.findIndex(plant => plant.plantCode === id);
+            if (index === -1) {
+                throw new HttpException('Plant does not exist', 404);
+            }
+            this.plants.splice(index, 1);
+            resolve(this.plants);
+        });
+    }
+    */
 }

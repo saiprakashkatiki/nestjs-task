@@ -1,6 +1,6 @@
 import { ApiProperty, ApiResponse } from '@nestjs/swagger';
 
-export class Plant{
+export class Plant {
     @ApiProperty()
     plantCode: string;
 
