@@ -15,13 +15,11 @@ export class PlantsController {
         return plants;
     }
 
-
     @Get(':plantCode')
     async getPlant(@Param('plantCode') plantCode:string) {
         const plant = await this.plantsService.getPlant(plantCode);
         return plant;
     }
-
 
     @Post()
     @ApiResponse({ status: 201, 

@@ -11,7 +11,6 @@ export class PlantsService {
         });
     }
 
-    
     getPlant(plantCode): Promise<any> {
         let id = String(plantCode) 
         return new Promise(resolve => {
@@ -23,7 +22,6 @@ export class PlantsService {
             resolve(plant);
         });
     }
-
 
     savePlant(plant): Promise<any> {
         return new Promise(resolve =>{
