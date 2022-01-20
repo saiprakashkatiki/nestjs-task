@@ -1,42 +1,51 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post } from '@nestjs/common';
 import { PlantsService } from './plants.service';
-import { CreatePlantDto } from './create-plant.dto';
-import { ApiTags, ApiResponse } from '@nestjs/swagger';
-import { Plant } from './plant.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { PlantsEntity } from "./entities/plant.entity";
+import { PlantsDTO } from './plant.dto';
 
 @ApiTags('plants')
 @Controller('plants')
 export class PlantsController {
-    constructor( private readonly plantsService: PlantsService) {}
+    constructor( private plantsService: PlantsService) {}
 
     @Get()
     async getAllPlants() {
         const plants = await this.plantsService.getAllPlants();
-        return plants;
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Plants fetched successfully',
+            plants
+        };
     }
 
     @Get(':plantCode')
-    async getPlant(@Param('plantCode') plantCode:string) {
-        const plant = await this.plantsService.getPlant(plantCode);
-        return plant;
+    async getPlantByPlantCode(@Param('plantCode') plantCode: string) {
+        const data = await this.plantsService.getPlantByPlantCode(plantCode);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Plant fetched successfully',
+            data,
+        };
     }
 
     @Post()
-    @ApiResponse({ status: 201, 
-        description: 'The plant has been successfully created.',
-        type: Plant,
-    })
-    @ApiResponse({ status: 403, description: 'Forbidden.'})
-    async savePlant(@Body() createPlantDto: CreatePlantDto ) {
-        this.plantsService.savePlant(createPlantDto);
-        console.log('Successfully Saved');
+    async savePlant(@Body() data: PlantsDTO) {
+        const plant = await this.plantsService.savePlant(data);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Plant created successfully',
+            plant
+        };
     }
 
-    /*
-    @Delete()
-    async deletePlant(@Query() query) {
-        const plants = await this.plantsService.deletePlant(query.plantCode);
-        return plants;
+    @Delete(':plantCode')
+    async deletePlant(@Param('plantCode') plantCode: string) {
+       await this.plantsService.deletePlant(plantCode);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Plant deleted successfully',
+        };
     }
-    */
+    
 }

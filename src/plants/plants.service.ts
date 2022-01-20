@@ -1,46 +1,38 @@
-import { Injectable, HttpException } from '@nestjs/common';
-import { Plant } from './plant.dto';
+import { Injectable, HttpStatus } from '@nestjs/common';
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { PlantsEntity } from "./entities/plant.entity";
+import { PlantsDTO } from './plant.dto';
 
 @Injectable()
 export class PlantsService {
-   private plants: Plant[]=[];
+    constructor(
+        @InjectRepository(PlantsEntity)
+        private readonly plantsRepository: Repository<PlantsEntity>
+    ){}
 
-    getAllPlants(): Promise<any> {
-        return new Promise(resolve => {
-            resolve(this.plants);
-        });
+   async getAllPlants() {
+        return await this.plantsRepository.find();
     }
 
-    getPlant(plantCode): Promise<any> {
-        let id = String(plantCode) 
-        return new Promise(resolve => {
-            const plant = this.plants.find(plant => plant.plantCode === id);
-
-            if(!plant) {
-                throw new HttpException('Plant does not exist', 404)
-            }
-            resolve(plant);
+    async getPlantByPlantCode(plantCode: string): Promise<PlantsDTO> {
+        return await this.plantsRepository.findOne({
+            where: {
+                plantCode: plantCode,
+            },
         });
+        
     }
 
-    savePlant(plant): Promise<any> {
-        return new Promise(resolve =>{
-            this.plants.push(plant);
-            resolve(this.plants);
-        });
+    async savePlant(data: PlantsDTO) {
+        const plant = this.plantsRepository.create(data);
+        await this.plantsRepository.save(data);
+        return plant;
+           
     }
 
-    /*
-    deletePlant(plantCode): Promise<any> {
-        let id = String(plantCode);
-        return new Promise(resolve => {
-            let index = this.plants.findIndex(plant => plant.plantCode === id);
-            if (index === -1) {
-                throw new HttpException('Plant does not exist', 404);
-            }
-            this.plants.splice(index, 1);
-            resolve(this.plants);
-        });
+    async deletePlant(plantCode: string) {
+       await this.plantsRepository.delete({ plantCode });
+       return { deleted: true};
     }
-    */
 }

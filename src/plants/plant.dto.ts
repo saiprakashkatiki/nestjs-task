@@ -1,6 +1,10 @@
-import { ApiProperty, ApiResponse } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class Plant {
+export class PlantsDTO {
+
+    @ApiProperty()
+    barcodeId: string;
+
     @ApiProperty()
     plantCode: string;
 
@@ -8,5 +12,11 @@ export class Plant {
     plantName: string;
 
     @ApiProperty()
-    userName: string;
+    createdUser: string;
+
+    @ApiProperty()
+    updatedUser: string;
+
+    @ApiProperty()
+    isActive: boolean;
 }
