@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post,Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post,Put } from '@nestjs/common';
 import { PlantsService } from './plants.service';
 import { ApiTags } from '@nestjs/swagger';
 import { PlantsEntity } from "./entities/plant.entity";
@@ -51,7 +51,13 @@ export class PlantsController {
             };
         }
 
-    @Delete(':plantCode')
+    @Patch('edit/:plantCode')
+    async editPlant(@Body() plantsDTO:PlantsDTO,@Param('plantCode') plantCode:string){
+        const plant =await this.plantsService.editPlant(plantCode, plantsDTO);
+        return plant;
+    }
+
+    @Delete('/delete/:plantCode')
     async deletePlant(@Param('plantCode') plantCode: string) {
        await this.plantsService.deletePlant(plantCode);
         return {

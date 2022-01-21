@@ -37,7 +37,19 @@ export class PlantsService {
         return await this.plantsRepository.update(plantCode,data);
     }
 
+    async editPlant(plantCode:string, plantsDTO: PlantsDTO) {
+        const editedPlant = await this.plantsRepository.findOne(plantCode);
+        if(!editedPlant) {
+            throw new NotFoundException('Product not found');
+        }
+        return this.plantsRepository.update(plantsDTO, editedPlant);
+    }
+
     async deletePlant(plantCode: string) {
-       const plant = await this.plantsRepository.delete({ plantCode });
+       const plant = await this.plantsRepository.findOne( plantCode );
+       if(!plant){
+            throw new NotFoundException('Product not found');
+       }
+       return this.plantsRepository.delete({plantCode});
     }
 }
