@@ -27,7 +27,7 @@ export class PlantsEntity {
     })
     updatedUser: string;
 
-    @Column({
+    @Column('boolean', {
         name: 'is_active', default:true
     })
     isActive: boolean;

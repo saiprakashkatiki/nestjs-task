@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post,Put } from '@nestjs/common';
 import { PlantsService } from './plants.service';
 import { ApiTags } from '@nestjs/swagger';
 import { PlantsEntity } from "./entities/plant.entity";
@@ -21,12 +21,12 @@ export class PlantsController {
 
     @Get(':plantCode')
     async getPlantByPlantCode(@Param('plantCode') plantCode: string) {
-        const data = await this.plantsService.getPlantByPlantCode(plantCode);
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Plant fetched successfully',
-            data,
-        };
+            const plant = await this.plantsService.getPlantByPlantCode(plantCode);
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Plant fetched successfully',
+                plant,
+            };
     }
 
     @Post()
@@ -35,9 +35,21 @@ export class PlantsController {
         return {
             statusCode: HttpStatus.OK,
             message: 'Plant created successfully',
-            plant
+            plant,
         };
     }
+
+    @Post(':plantCode')
+    async activateOrDeactivatePlantByPlantCode(
+        @Param('plantCode') plantCode: string,
+        @Body('isActive') isActive: boolean,
+        ){
+            await this.plantsService.activateOrDeactivatePlantByPlantCode(plantCode,isActive);
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Plant status updated successfully',
+            };
+        }
 
     @Delete(':plantCode')
     async deletePlant(@Param('plantCode') plantCode: string) {

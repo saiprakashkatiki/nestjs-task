@@ -1,4 +1,4 @@
-import { Injectable, HttpStatus } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { PlantsEntity } from "./entities/plant.entity";
@@ -15,24 +15,29 @@ export class PlantsService {
         return await this.plantsRepository.find();
     }
 
-    async getPlantByPlantCode(plantCode: string): Promise<PlantsDTO> {
-        return await this.plantsRepository.findOne({
+    async getPlantByPlantCode(plantCode: string) {
+        const plant = await this.plantsRepository.findOne({
             where: {
                 plantCode: plantCode,
-            },
+            }
         });
-        
+        if(!plant){
+            throw new NotFoundException('Plant not found');
+        }
+        return plant; 
     }
 
     async savePlant(data: PlantsDTO) {
         const plant = this.plantsRepository.create(data);
         await this.plantsRepository.save(data);
-        return plant;
-           
+        return plant;           
+    }
+
+    async activateOrDeactivatePlantByPlantCode(plantCode: string, data ) {
+        return await this.plantsRepository.update(plantCode,data);
     }
 
     async deletePlant(plantCode: string) {
-       await this.plantsRepository.delete({ plantCode });
-       return { deleted: true};
+       const plant = await this.plantsRepository.delete({ plantCode });
     }
 }
