@@ -3,12 +3,13 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { PlantsEntity } from "./entities/plant.entity";
 import { PlantsDTO } from './plant.dto';
+//import { PlantRepository } from './plant.repository';
 
 @Injectable()
 export class PlantsService {
     constructor(
         @InjectRepository(PlantsEntity)
-        private readonly plantsRepository: Repository<PlantsEntity>
+        private readonly plantsRepository: Repository<PlantsEntity>,
     ){}
 
    async getAllPlants() {
@@ -40,7 +41,7 @@ export class PlantsService {
     async editPlant(plantCode:string, plantsDTO: PlantsDTO) {
         const editedPlant = await this.plantsRepository.findOne(plantCode);
         if(!editedPlant) {
-            throw new NotFoundException('Product not found');
+            throw new NotFoundException('Plant not found');
         }
         return this.plantsRepository.update(plantsDTO, editedPlant);
     }
@@ -48,7 +49,7 @@ export class PlantsService {
     async deletePlant(plantCode: string) {
        const plant = await this.plantsRepository.findOne( plantCode );
        if(!plant){
-            throw new NotFoundException('Product not found');
+            throw new NotFoundException('Plant not found');
        }
        return this.plantsRepository.delete({plantCode});
     }

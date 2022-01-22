@@ -2,6 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('plants')
 export class PlantsEntity {
+    
     @PrimaryGeneratedColumn('uuid', {
         name: 'barcode_id'
     })
@@ -18,14 +19,9 @@ export class PlantsEntity {
     plantName: string;
 
     @Column({
-        name: 'created_user'
+        name: 'user_name'
     })
-    createdUser: string;
-
-    @Column({
-        name: 'updated_user'
-    })
-    updatedUser: string;
+    userName: string;
 
     @Column('boolean', {
         name: 'is_active', default:true

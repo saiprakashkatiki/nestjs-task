@@ -1,22 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsUUID } from 'class-validator';
 
 export class PlantsDTO {
 
-    @ApiProperty()
-    barcodeId: string;
+    @ApiProperty({required:true})
+    @IsUUID()
+    readonly barcodeId: string;
 
-    @ApiProperty()
+    @ApiProperty({required:true})
     plantCode: string;
 
-    @ApiProperty()
+    @ApiProperty({required:true})
     plantName: string;
 
-    @ApiProperty()
-    createdUser: string;
+    @ApiProperty({required:true})
+    userName: string;
 
-    @ApiProperty()
-    updatedUser: string;
-
-    @ApiProperty()
+    @ApiProperty({default:true})
     isActive: boolean;
 }

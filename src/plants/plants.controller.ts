@@ -34,7 +34,7 @@ export class PlantsController {
         const plant = await this.plantsService.savePlant(data);
         return {
             statusCode: HttpStatus.OK,
-            message: 'Plant created successfully',
+            message: 'Plant saved successfully',
             plant,
         };
     }
@@ -54,7 +54,7 @@ export class PlantsController {
     @Patch('edit/:plantCode')
     async editPlant(@Body() plantsDTO:PlantsDTO,@Param('plantCode') plantCode:string){
         const plant =await this.plantsService.editPlant(plantCode, plantsDTO);
-        return plant;
+        return {message: 'Plant updated successfully',plant};
     }
 
     @Delete('/delete/:plantCode')
