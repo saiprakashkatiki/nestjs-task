@@ -47,10 +47,15 @@ export class PlantsService {
     }
 
     async deletePlant(plantCode: string) {
-       const plant = await this.plantsRepository.findOne( plantCode );
+       const plant = await this.plantsRepository.findOne({
+            where: {
+                plantCode: plantCode,
+            }
+        });
        if(!plant){
             throw new NotFoundException('Plant not found');
        }
-       return this.plantsRepository.delete({plantCode});
+       await this.plantsRepository.delete({plantCode});
+       return { deleted: true };
     }
 }
