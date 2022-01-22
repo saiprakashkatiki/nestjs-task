@@ -21,4 +21,4 @@ import { PlantsEntity } from './plants/entities/plant.entity';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

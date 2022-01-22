@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('plants')
 export class PlantsEntity {
-    
+
     @PrimaryGeneratedColumn('uuid', {
         name: 'barcode_id'
     })
@@ -24,7 +24,7 @@ export class PlantsEntity {
     userName: string;
 
     @Column('boolean', {
-        name: 'is_active', default:true
+        name: 'is_active', default: true
     })
     isActive: boolean;
 }
