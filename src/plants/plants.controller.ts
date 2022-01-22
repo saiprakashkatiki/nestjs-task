@@ -13,11 +13,11 @@ export class PlantsController {
         try {
             const plants = await this.plantsService.getAllPlants();
             return {
-                statusCode: HttpStatus.OK,
+                statusCode: true,
                 message: 'Plants fetched successfully',
                 plants
             };
-        } catch (err) { }
+        } catch (error) {  }
     }
 
     @Get(':plantCode')
@@ -25,11 +25,11 @@ export class PlantsController {
         try {
             const plant = await this.plantsService.getPlantByPlantCode(plantCode);
             return {
-                statusCode: HttpStatus.OK,
+                statusCode: true,
                 message: 'Plant fetched successfully',
                 plant,
             };
-        } catch (err) { }
+        } catch (error) { }
     }
 
     @Post()
@@ -37,11 +37,11 @@ export class PlantsController {
         try {
             const plant = await this.plantsService.savePlant(data);
             return {
-                statusCode: HttpStatus.OK,
+                statusCode: true,
                 message: 'Plant saved successfully',
                 plant,
             };
-        } catch (err) { }
+        } catch (error) { }
     }
 
     @Post(':plantCode')
@@ -52,10 +52,10 @@ export class PlantsController {
         try {
             await this.plantsService.activateOrDeactivatePlantByPlantCode(plantCode, data);
             return {
-                statusCode: HttpStatus.OK,
+                statusCode: true,
                 message: 'Plant status updated successfully',
             };
-        } catch (err) { }
+        } catch (error) { }
     }
 
     @Patch('edit/:plantCode')
@@ -66,10 +66,10 @@ export class PlantsController {
         try {
             await this.plantsService.editPlant(plantCode, data);
             return {
-                statusCode: HttpStatus.OK,
+                statusCode: true,
                 message: 'Plant edited successfully'
             };
-        } catch (err) { }
+        } catch (error) { }
     }
 
     @Delete('/delete/:plantCode')
@@ -77,10 +77,10 @@ export class PlantsController {
         try {
             await this.plantsService.deletePlant(plantCode);
             return {
-                statusCode: HttpStatus.OK,
+                statusCode: true,
                 message: 'Plant deleted successfully',
             };
-        } catch (err) { }
+        } catch (error) { }
     }
 
 }
