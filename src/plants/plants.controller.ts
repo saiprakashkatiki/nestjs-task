@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, ConflictException, Controller, Delete, Get, HttpStatus, NotFoundException, NotImplementedException, Param, Patch, Post, Put } from '@nestjs/common';
 import { PlantsService } from './plants.service';
 import { ApiTags } from '@nestjs/swagger';
 import { PlantsDTO, StatusPlantDTO, UpdatePlantsDTO } from './plant.dto';
+import { ValidationError } from 'class-validator';
 
 @ApiTags('plants')
 @Controller('plants')
@@ -17,7 +18,12 @@ export class PlantsController {
                 message: 'Plants fetched successfully',
                 plants
             };
-        } catch (error) {  }
+        } catch (error) {
+            throw new NotImplementedException({
+                status: false,
+                message: 'Methos not Implemented'
+            });
+        }
     }
 
     @Get(':plantCode')
@@ -25,11 +31,16 @@ export class PlantsController {
         try {
             const plant = await this.plantsService.getPlantByPlantCode(plantCode);
             return {
-                statusCode: true,
+                status: true,
                 message: 'Plant fetched successfully',
                 plant,
             };
-        } catch (error) { }
+        } catch (error) {
+            throw new NotFoundException({
+                status: false,
+                message: 'Plant Not Found'
+            });
+        }
     }
 
     @Post()
@@ -37,11 +48,16 @@ export class PlantsController {
         try {
             const plant = await this.plantsService.savePlant(data);
             return {
-                statusCode: true,
+                status: true,
                 message: 'Plant saved successfully',
                 plant,
             };
-        } catch (error) { }
+        } catch (error) {
+            throw new ConflictException({
+                status: false,
+                message: 'Plant already exists'
+            });
+        }
     }
 
     @Post(':plantCode')
@@ -52,10 +68,12 @@ export class PlantsController {
         try {
             await this.plantsService.activateOrDeactivatePlantByPlantCode(plantCode, data);
             return {
-                statusCode: true,
+                status: true,
                 message: 'Plant status updated successfully',
             };
-        } catch (error) { }
+        } catch (error) {
+            
+        }
     }
 
     @Patch('edit/:plantCode')
@@ -66,10 +84,15 @@ export class PlantsController {
         try {
             await this.plantsService.editPlant(plantCode, data);
             return {
-                statusCode: true,
+                status: true,
                 message: 'Plant edited successfully'
             };
-        } catch (error) { }
+        } catch (error) {
+            throw new NotFoundException({
+                status: false,
+                message: 'Plant Not Found'
+            });
+        }
     }
 
     @Delete('/delete/:plantCode')
@@ -77,10 +100,15 @@ export class PlantsController {
         try {
             await this.plantsService.deletePlant(plantCode);
             return {
-                statusCode: true,
+                status: true,
                 message: 'Plant deleted successfully',
             };
-        } catch (error) { }
+        } catch (error) {
+            throw new NotFoundException({
+                status: false,
+                message: 'Plant Not Found'
+            });
+        }
     }
 
 }
