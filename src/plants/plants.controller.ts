@@ -14,14 +14,14 @@ export class PlantsController {
         try {
             const plants = await this.plantsService.getAllPlants();
             return {
-                statusCode: true,
+                status: true,
                 message: 'Plants fetched successfully',
                 plants
             };
         } catch (error) {
             throw new NotImplementedException({
                 status: false,
-                message: 'Methos not Implemented'
+                message: 'Method not Implemented'
             });
         }
     }
@@ -72,7 +72,10 @@ export class PlantsController {
                 message: 'Plant status updated successfully',
             };
         } catch (error) {
-            
+            throw new ConflictException({
+                status: false,
+                message: 'Only boolean value true or false is accepted'
+            });
         }
     }
 
