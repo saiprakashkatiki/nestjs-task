@@ -31,5 +31,5 @@ export class Plant {
     isActive: boolean;
 
     @OneToMany(type => Section , section => section.plant)
-    sections: Section[];
+    section: Section[];
 }
