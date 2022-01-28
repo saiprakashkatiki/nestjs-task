@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsUUID, Length, Matches } from 'class-validator';
-import { OneToMany, Unique } from 'typeorm';
 
 export class SectionsDTO {
 
