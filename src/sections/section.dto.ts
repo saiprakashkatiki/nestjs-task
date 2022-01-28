@@ -29,10 +29,6 @@ export class UpdateSectionsDTO {
     sectionName: string;
 
     @ApiProperty({ required: true })
-    @Length(1, 10, { message: 'More than 5 chars are not allowed' })
-    sectionCode: string;
-
-    @ApiProperty({ required: true })
     @Length(5, 20, { message: 'More than 20 chars are not allowed' })
     userName: string;
 
