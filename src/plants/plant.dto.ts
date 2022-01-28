@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsUUID, Length, Matches } from 'class-validator';
+import { Length, Matches } from 'class-validator';
 
 export class PlantsDTO {
 
