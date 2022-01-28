@@ -4,10 +4,6 @@ import { IsUUID, Length, Matches } from 'class-validator';
 export class PlantsDTO {
 
     @ApiProperty({ required: true })
-    @IsUUID()
-    readonly barcodeId: string;
-
-    @ApiProperty({ required: true })
     @Length(1, 5, { message: 'More than 5 chars are not allowed' })
     @Matches(/([A-Z])/, { message: 'Only Alphabets are allowed' })
     plantCode: string;
