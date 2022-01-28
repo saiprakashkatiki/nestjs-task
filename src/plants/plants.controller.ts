@@ -2,7 +2,6 @@ import { Body, ConflictException, Controller, Delete, Get, HttpStatus, NotFoundE
 import { PlantsService } from './plants.service';
 import { ApiTags } from '@nestjs/swagger';
 import { PlantsDTO, StatusPlantDTO, UpdatePlantsDTO } from './plant.dto';
-import { ValidationError } from 'class-validator';
 
 @ApiTags('plants')
 @Controller('plants')

@@ -3,7 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PlantsModule } from './plants/plants.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PlantsEntity } from './plants/entities/plant.entity';
+import { Plant } from './plants/entities/plant.entity';
+import { Section } from './sections/entities/section.entity';
+import { SectionsModule } from './sections/sections.module';
 
 @Module({
   imports: [
@@ -14,10 +16,11 @@ import { PlantsEntity } from './plants/entities/plant.entity';
       username: 'root',
       password: 'root',
       database: 'pms',
-      entities: [PlantsEntity],
-      synchronize: false,
-      logging: true
-    }), PlantsModule],
+      entities: [Plant,Section],
+      synchronize: true,
+      logging: true,
+      autoLoadEntities: true
+    }), PlantsModule, SectionsModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,14 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { PlantsEntity } from "./entities/plant.entity";
+import { Plant } from "./entities/plant.entity";
 import { PlantsDTO, UpdatePlantsDTO, StatusPlantDTO } from './plant.dto';
 
 @Injectable()
 export class PlantsService {
     constructor(
-        @InjectRepository(PlantsEntity)
-        private readonly plantsRepository: Repository<PlantsEntity>,
+        @InjectRepository(Plant)
+        private readonly plantsRepository: Repository<Plant>,
     ) { }
 
     async getAllPlants() {

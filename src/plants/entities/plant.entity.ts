@@ -1,8 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Section } from "../../sections/entities/section.entity";
 
 @Entity('plants')
 @Unique(['plantCode'])
-export class PlantsEntity {
+export class Plant {
 
     @PrimaryGeneratedColumn('uuid', {
         name: 'barcode_id'
@@ -24,8 +25,11 @@ export class PlantsEntity {
     })
     userName: string;
 
-    @Column('boolean', {
+    @Column({
         name: 'is_active', default: true
     })
     isActive: boolean;
+
+    @OneToMany(type => Section , section => section.plant)
+    sections: Section[];
 }
