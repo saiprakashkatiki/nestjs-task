@@ -1,11 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsUUID, Length, Matches } from 'class-validator';
+import { Length, Matches } from 'class-validator';
 
 export class SectionsDTO {
-
-    @ApiProperty({ required: true })
-    @IsUUID()
-    readonly id: string;
 
     @ApiProperty({ required: true })
     @Length(5, 30, { message: 'More than 30 chars are not allowed' })
