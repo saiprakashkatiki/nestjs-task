@@ -30,7 +30,7 @@ export class Section {
     })
     plantCode: string;
 
-    @ManyToOne(type => Plant , plant => plant.sections)
+    @ManyToOne(type => Plant , plant => plant.section)
     plant:Plant[];
     
 }
