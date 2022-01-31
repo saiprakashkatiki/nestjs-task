@@ -46,11 +46,11 @@ export class SectionsController {
     @Post()
     async saveSection(@Body() data: SectionsDTO) {
         try {
-            const section = await this.sectionsService.saveSection(data);
+            const savedSection = await this.sectionsService.saveSection(data);
             return {
                 status: true,
                 message: 'Section saved successfully',
-                section,
+                savedSection,
             };
         } catch (error) {
             throw new ConflictException({
@@ -63,10 +63,10 @@ export class SectionsController {
     @Patch('edit/:sectionCode')
     async editSection(
         @Param('sectionCode') sectionCode: string,
-        @Body() data: UpdateSectionsDTO
+        @Body() updateSectionsDTO: UpdateSectionsDTO
     ) {
         try {
-            await this.sectionsService.editSection(sectionCode, data);
+            await this.sectionsService.editSection(sectionCode, updateSectionsDTO);
             return {
                 status: true,
                 message: 'Section edited successfully'

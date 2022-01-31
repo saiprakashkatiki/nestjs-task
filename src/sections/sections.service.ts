@@ -29,12 +29,12 @@ export class SectionsService {
     }
 
     async saveSection(data: SectionsDTO) {
-        const section = this.sectionsRepository.create(data);
+        const savedSection = this.sectionsRepository.create(data);
         await this.sectionsRepository.save(data);
-        return section;
+        return savedSection;
     }
 
-    async editSection(sectionCode: string, data: UpdateSectionsDTO) {
+    async editSection(sectionCode: string, updateSectionsDTO: UpdateSectionsDTO) {
         const editedSection = await this.sectionsRepository.findOne({
             where: {
                 sectionCode: sectionCode,
@@ -43,7 +43,7 @@ export class SectionsService {
         if (!editedSection) {
             throw new NotFoundException('Section doesnt exist');
         }
-        await this.sectionsRepository.update({ sectionCode }, data);
+        await this.sectionsRepository.update({ sectionCode }, updateSectionsDTO);
         return await this.sectionsRepository.findOne({ sectionCode });
     }
 
