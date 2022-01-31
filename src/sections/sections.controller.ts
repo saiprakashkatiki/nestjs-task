@@ -1,7 +1,8 @@
 import { Body, ConflictException, Controller, Delete, Get, NotFoundException, NotImplementedException, Param, Patch, Post} from '@nestjs/common';
 import { SectionsService } from './sections.service';
 import { ApiTags } from '@nestjs/swagger';
-import { SectionsDTO, UpdateSectionsDTO } from './section.dto';
+import { SectionsDTO } from './dtos/section.dto';
+import { UpdateSectionsDTO } from './dtos/edit-section.dto';
 
 @ApiTags('sections')
 @Controller('sections')
