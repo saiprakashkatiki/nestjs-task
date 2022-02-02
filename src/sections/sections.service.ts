@@ -4,12 +4,13 @@ import { Repository } from "typeorm";
 import { Section } from './entities/section.entity';
 import { SectionsDTO} from './dtos/section.dto';
 import { UpdateSectionsDTO } from './dtos/edit-section.dto';
+import { SectionRepository } from './section.repository';
 
 @Injectable()
 export class SectionsService {
     constructor(
         @InjectRepository(Section)
-        private readonly sectionsRepository: Repository<Section>,
+        private readonly sectionsRepository: SectionRepository,
     ) { }
 
     async getAllSections() {
