@@ -3,13 +3,12 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Plant } from "./entities/plant.entity";
 import { PlantsDTO, UpdatePlantsDTO, StatusPlantDTO } from './plant.dto';
-import { PlantRepository } from './plant.repository';
 
 @Injectable()
 export class PlantsService {
     constructor(
         @InjectRepository(Plant)
-        private readonly plantsRepository: PlantRepository,
+        private readonly plantsRepository: Repository<Plant>,
     ) { }
 
     async getAllPlants() {
