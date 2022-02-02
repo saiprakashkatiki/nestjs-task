@@ -1,4 +1,4 @@
-import { Body, ConflictException, Controller, Delete, Get, HttpStatus, NotFoundException, NotImplementedException, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, ConflictException, Controller, Delete, Get, HttpStatus, NotFoundException, NotImplementedException, Param, Patch, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { PlantsService } from './plants.service';
 import { ApiTags } from '@nestjs/swagger';
 import { PlantsDTO, StatusPlantDTO, UpdatePlantsDTO } from './plant.dto';
@@ -43,6 +43,7 @@ export class PlantsController {
     }
 
     @Post()
+    @UsePipes(new ValidationPipe())
     async savePlant(@Body() data: PlantsDTO) {
         try {
             const plant = await this.plantsService.savePlant(data);
@@ -79,6 +80,7 @@ export class PlantsController {
     }
 
     @Patch('edit/:plantCode')
+    @UsePipes(new ValidationPipe())
     async editPlant(
         @Param('plantCode') plantCode: string,
         @Body() data: UpdatePlantsDTO
