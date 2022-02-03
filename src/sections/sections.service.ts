@@ -1,8 +1,8 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Section } from './entities/section.entity';
-import { SectionsDTO} from './dtos/section.dto';
+import { SectionsDTO } from './dtos/section.dto';
 import { UpdateSectionsDTO } from './dtos/edit-section.dto';
 import { PlantsService } from 'src/plants/plants.service';
 
@@ -34,7 +34,9 @@ export class SectionsService {
     async saveSection(data: SectionsDTO) {
         const plant = await this.plantsService.getPlantByPlantCode(data.plantCode)
         if (!plant) {
-            throw new ConflictException('Plant doesnt exist');
+            throw new NotFoundException({
+                message: 'Plant doesnt exist'
+            });
         }
         const savedSection = this.sectionRepository.create(data);
         await this.sectionRepository.save(data);

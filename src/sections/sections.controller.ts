@@ -55,7 +55,7 @@ export class SectionsController {
         } catch (error) {
             throw new ConflictException({
                 status: false,
-                message: 'Section already exists or Plant does not exist'
+                message: 'Section already exists or Plant doesnt exist'
             });
         }
     }
