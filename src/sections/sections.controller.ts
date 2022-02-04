@@ -7,6 +7,7 @@ import { UpdateSectionsDTO } from './dtos/edit-section.dto';
 @ApiTags('sections')
 @Controller('sections')
 export class SectionsController {
+
     constructor(private sectionsService: SectionsService) { }
 
     @Get()

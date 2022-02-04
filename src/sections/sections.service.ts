@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Section } from './entities/section.entity';
@@ -8,6 +8,8 @@ import { PlantsService } from 'src/plants/plants.service';
 
 @Injectable()
 export class SectionsService {
+    private logger = new Logger('SectionsService');
+
     constructor(
         @InjectRepository(Section)
         private readonly sectionRepository: Repository<Section>,
@@ -16,6 +18,7 @@ export class SectionsService {
     ) { }
 
     async getAllSections() {
+        this.logger.verbose('Retriving all sections...');
         return await this.sectionRepository.find();
     }
 
@@ -28,6 +31,7 @@ export class SectionsService {
         if (!section) {
             throw new NotFoundException('Section not found');
         }
+        this.logger.verbose('Retriving the requested section...');
         return section;
     }
 
@@ -40,6 +44,7 @@ export class SectionsService {
         }
         const savedSection = this.sectionRepository.create(data);
         await this.sectionRepository.save(data);
+        this.logger.verbose('Creating a new section ...');
         return savedSection;
     }
 
@@ -53,6 +58,7 @@ export class SectionsService {
             throw new NotFoundException('Section doesnt exist');
         }
         await this.sectionRepository.update({ sectionCode }, updateSectionsDTO);
+        this.logger.verbose('Updating the data of edited section...');
         return await this.sectionRepository.findOne({ sectionCode });
     }
 
@@ -66,6 +72,7 @@ export class SectionsService {
             throw new NotFoundException('Section not found');
         }
         await this.sectionRepository.delete({ sectionCode });
+        this.logger.verbose('Deleting the requested section...');
         return { deleted: true };
     }
 }

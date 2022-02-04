@@ -6,9 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Plant } from './plants/entities/plant.entity';
 import { Section } from './sections/entities/section.entity';
 import { SectionsModule } from './sections/sections.module';
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
-  imports: [
+  imports: [LoggerModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
