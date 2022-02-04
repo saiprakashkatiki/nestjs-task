@@ -29,6 +29,7 @@ export class SectionsService {
             }
         });
         if (!section) {
+            this.logger.error('Could not find section with code ' + sectionCode);
             throw new NotFoundException('Section not found');
         }
         this.logger.verbose('Retriving the requested section...');
@@ -38,9 +39,7 @@ export class SectionsService {
     async saveSection(data: SectionsDTO) {
         const plant = await this.plantsService.getPlantByPlantCode(data.plantCode)
         if (!plant) {
-            throw new NotFoundException({
-                message: 'Plant doesnt exist'
-            });
+            throw new NotFoundException('Plant doesnt exist');
         }
         const savedSection = this.sectionRepository.create(data);
         await this.sectionRepository.save(data);
