@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Length, Matches } from 'class-validator';
+import { IsAge } from '../age.decorator'
 
 export class SectionsDTO {
 
@@ -19,5 +20,11 @@ export class SectionsDTO {
     @Length(1, 5, { message: 'More than 5 chars are not allowed' })
     @Matches(/([A-Z])/, { message: 'Only Alphabets are allowed' })
     plantCode: string;
+
+    @ApiProperty({
+        required: true,
+    })
+    @IsAge(0,{message: 'Age must be greater than 0'})
+    age: number;
 
 }

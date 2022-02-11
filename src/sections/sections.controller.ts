@@ -51,7 +51,7 @@ export class SectionsController {
             const savedSection = await this.sectionsService.saveSection(data);
             return {
                 status: true,
-                message: 'Section saved successfully',
+                message: 'Section Created successfully',
                 savedSection,
             };
         } catch (error) {

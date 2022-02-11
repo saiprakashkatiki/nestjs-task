@@ -9,7 +9,8 @@ import { SectionsModule } from './sections/sections.module';
 import { LoggerModule } from 'nestjs-pino';
 
 @Module({
-  imports: [LoggerModule.forRoot(),
+  imports: [
+    LoggerModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -17,12 +18,15 @@ import { LoggerModule } from 'nestjs-pino';
       username: 'root',
       password: 'root',
       database: 'pms',
-      entities: [Plant,Section],
+      entities: [Plant, Section],
       synchronize: true,
       logging: true,
-      autoLoadEntities: true
-    }), PlantsModule, SectionsModule],
+      autoLoadEntities: true,
+    }),
+    PlantsModule,
+    SectionsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
