@@ -7,6 +7,8 @@ import { Plant } from './plants/entities/plant.entity';
 import { Section } from './sections/entities/section.entity';
 import { SectionsModule } from './sections/sections.module';
 import { LoggerModule } from 'nestjs-pino';
+import { SectionAttributes } from './section-attributes/section-attributes.entity';
+import { SectionAttributesModule } from './section-attributes/section-attributes.module';
 
 @Module({
   imports: [
@@ -18,15 +20,16 @@ import { LoggerModule } from 'nestjs-pino';
       username: 'root',
       password: 'root',
       database: 'pms',
-      entities: [Plant, Section],
+      entities: [Plant, Section, SectionAttributes],
       synchronize: true,
       logging: true,
       autoLoadEntities: true,
     }),
     PlantsModule,
     SectionsModule,
+    SectionAttributesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

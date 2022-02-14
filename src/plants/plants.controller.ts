@@ -2,11 +2,16 @@ import { Body, ConflictException, Controller, Delete, Get, HttpStatus, NotFoundE
 import { PlantsService } from './plants.service';
 import { ApiTags } from '@nestjs/swagger';
 import { PlantsDTO, StatusPlantDTO, UpdatePlantsDTO } from './plant.dto';
+import { SectionsService } from 'src/sections/sections.service';
 
 @ApiTags('plants')
 @Controller('plants')
 export class PlantsController {
-    constructor(private plantsService: PlantsService) { }
+    constructor(
+        private plantsService: PlantsService,
+
+        private sectionsService: SectionsService
+    ) { }
 
     @Get()
     async getAllPlants() {

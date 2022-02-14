@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Section } from './entities/section.entity';
@@ -14,6 +14,7 @@ export class SectionsService {
         @InjectRepository(Section)
         private readonly sectionRepository: Repository<Section>,
 
+        @Inject(forwardRef(() => PlantsService))
         private readonly plantsService: PlantsService,
     ) { }
 

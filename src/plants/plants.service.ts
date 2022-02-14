@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SectionsService } from 'src/sections/sections.service';
 import { Repository } from 'typeorm';
@@ -10,8 +10,10 @@ export class PlantsService {
   constructor(
     @InjectRepository(Plant)
     private readonly plantsRepository: Repository<Plant>,
-  ) //private readonly sectionsService: SectionsService,
-  {}
+
+    @Inject(forwardRef(() => SectionsService))
+    private sectionsService: SectionsService,
+  ) { }
 
   async getAllPlants() {
     return await this.plantsRepository.find();
